@@ -50,6 +50,17 @@ npm run e2e          # browser tests, server must be running, browser installed 
 
 Errors are JSON with an `error` field. Validation errors add `details`; other errors may add context fields such as `id`.
 
+## Metrics
+
+The deployed app enables a plain-text metrics listener on port `9100` using the `metrics` container port name. Scrape it with:
+
+```
+curl http://localhost:9100/
+# or from inside the cluster: curl http://<pod-ip>:9100/
+```
+
+The endpoint returns values such as `sandbox_runs_total` and `sandbox_uptime_seconds` so operations can scrape runtime metrics without affecting the main HTTP API.
+
 ## Environment contract
 
 Every variable the app reads is declared in `src/config.ts` and provided by `k8s/configmap.yaml`. Keep this table, the code, and the manifest in sync.
